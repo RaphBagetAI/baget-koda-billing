@@ -1,0 +1,7 @@
+{
+  "name": "Beta Access Requests",
+  "columns": [
+    {"name": "email", "type": "email", "required": true}
+  ],
+  "public": true
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Koda Billing - Billing Assistant for Freelance Therapists</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <img src="images/professional-minimalist-logo-for-koda-b.png" alt="Koda Billing Logo" class="logo" />
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#signup">Get Started</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <h1>Less Math, More Healing.</h1>
+          <p>Automate your sliding scale billing and Good Faith Estimates so you can focus on care, not calculations.</p>
+          <a href="#signup" class="btn-primary">Join the Beta</a>
+        </div>
+        <div class="hero-image">
+          <img src="images/clutter-free-desk.png" alt="A clutter-free therapist's desk with soft natural lighting" />
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <div class="container">
+        <h2>Designed for Therapists Who Want to Focus on Care</h2>
+        <ul class="feature-list">
+          <li>
+            <h3>Automated Sliding Scale Math</h3>
+            <p>Income-verified sliding scale calculations tailored to your custom tiers, eliminating guesswork and guilt-based pricing.</p>
+          </li>
+          <li>
+            <h3>Auto-Generated Good Faith Estimates</h3>
+            <p>Automatically create and send compliant GFEs each time your fees change to stay audit-proof effortlessly.</p>
+          </li>
+          <li>
+            <h3>One-Click Audit-Proof Superbills</h3>
+            <p>Generate superbills with accurate CPT codes and telehealth modifiers, ready for insurance scrutiny.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="workflow">
+      <div class="container">
+        <h2>How Koda Billing Works</h2>
+        <ol class="workflow-steps">
+          <li>
+            <h4>1. Client Income Verification</h4>
+            <p>Clients securely upload income proof to trigger sliding scale fee calculation.</p>
+          </li>
+          <li>
+            <h4>2. Automated Fee Adjustment & GFE</h4>
+            <p>Koda Math Engine adjusts fees and instantly generates compliant Good Faith Estimates.</p>
+          </li>
+          <li>
+            <h4>3. Superbill Generation</h4>
+            <p>Pull CPT codes and modifiers easily for audit-proof billing and faster reimbursements.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="signup" class="signup">
+      <div class="container">
+        <h2>Join the Koda Billing Beta</h2>
+        <p>Sign up today to simplify your billing and reclaim your time for therapy.</p>
+        <form id="betaForm">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
+          <button type="submit" class="btn-primary">Request Beta Access</button>
+          <p class="form-message"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Koda Billing. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const betaForm = document.getElementById('betaForm');
+    const formMessage = betaForm.querySelector('.form-message');
+    
+    betaForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = betaForm.email.value.trim();
+      if (!email) {
+        formMessage.textContent = 'Please enter a valid email address.';
+        formMessage.style.color = '#B35A3E'; // Alert Sienna
+        return;
+      }
+
+      formMessage.textContent = 'Submitting...';
+      formMessage.style.color = 'inherit';
+
+      try {
+        const response = await fetch('https://app.baget.ai/api/public/databases/REPLACE_DB_ID/rows', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ data: { email } })
+        });
+
+        if (response.ok) {
+          betaForm.reset();
+          formMessage.textContent = 'Thanks — we will be in touch shortly!';
+          formMessage.style.color = 'var(--equity-teal)';
+        } else {
+          throw new Error('Failed to submit');
+        }
+      } catch(error) {
+        formMessage.textContent = 'Submission failed, please try again.';
+        formMessage.style.color = '#B35A3E';
+      }
+    });
+  </script>
+</body>
+</html>
